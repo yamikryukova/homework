@@ -9,6 +9,14 @@ class Lecturer(Mentor):
     def __init__(self):
         self.grades = {}
 
+    def __str__(self):
+        return f"Имя: {self.name}\nФамилия: {self.surname}"
+
+    lect_list_grades = []
+    for all_grades in self.grades.values():
+        for lect_list_grades in all_grades:
+            lecture_rating = sum(lect_list_grades / len(lect_list_grades))
+
 
 class Reviewer(Mentor):
     def rate_hw(self, student, course, grade):
@@ -20,6 +28,9 @@ class Reviewer(Mentor):
         else:
             return 'Ошибка'
 
+    def __str__(self):
+        return f"Имя: {self.name}\nФамилия: {self.surname}\nСредняя оценка за лекции: {lecture_rating}"
+
 
 class Student:
     def __init__(self, name, surname, gender):
@@ -30,7 +41,7 @@ class Student:
         self.courses_in_progress = []
         self.grades = {}
 
-    def lector_assessment(self, lecturer, course, grade):
+    def lecturer_assessment(self, lecturer, course, grade):
         if isinstance(lecturer, Lecturer) and course in self.courses_attached and course in student.courses_in_progress:
             if course in lecturer.grades:
                 lecturer.grades[course] += [grade]
@@ -38,6 +49,15 @@ class Student:
                 lecturer.grades[course] = [grade]
         else:
             return 'Ошибка'
+
+        stud_list_grades = []
+        for all_grades in self.grades.values():
+            for stud_list_grades in all_grades:
+                students_rating = sum(stud_list_grades / len(stud_list_grade))
+
+    def __str__(self):
+        return (f"Имя: {self.name}\nФамилия: {self.surname}\nСредняя оценка за домашние задания: {students_rating}"
+                f"\nКурсы в процессе изучения: {self.courses_in_progres}\nЗавершенные курсы: {self.finished_course}")
 
 
 best_student = Student('Ruoy', 'Eman', 'your_gender')
